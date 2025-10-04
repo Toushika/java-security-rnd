@@ -27,11 +27,6 @@ public class OperationController extends AbstractController {
         this.aesDecryptionService = aesDecryptionService;
     }
 
-    @GetMapping(HELLO_PATH)
-    public Mono<String> message() {
-        return Mono.just("Hello World");
-    }
-
     @PostMapping(ENCODE_PATH)
     public Mono<EncodingResponse> encodeMessage(@RequestBody EncodingRequest encodingRequest) {
         return encodingService.encodeMessage(encodingRequest);

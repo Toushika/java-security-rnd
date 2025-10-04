@@ -75,26 +75,12 @@ The server runs on `http://localhost:8080` by default.
 
 ## API Endpoints
 
-### 1. Hello
-
-```http
-GET /hello
-```
-
-**Response:**
-
-```
-Hello World
-```
-
----
-
-### 2. Encoding
+### 1. Encoding
 
 Convert a message to **Base64**:
 
 ```http
-POST /encode
+POST /security/encode
 Content-Type: application/json
 
 {
@@ -112,12 +98,12 @@ Content-Type: application/json
 
 ---
 
-### 3. Decoding
+### 2. Decoding
 
 Decode a **Base64** message:
 
 ```http
-POST /decode
+POST /security/decode
 Content-Type: application/json
 
 {
@@ -135,12 +121,12 @@ Content-Type: application/json
 
 ---
 
-### 4. Hashing
+### 3. Hashing
 
 Generate a **SHA-256 hash** of a message:
 
 ```http
-POST /hashing
+POST /security/hashing
 Content-Type: application/json
 
 {
@@ -158,7 +144,7 @@ Content-Type: application/json
 
 ---
 
-### 5. AES Session Key
+### 4. AES Session Key
 
 Generate an **AES session key** for the client:
 
@@ -177,12 +163,12 @@ BASE64_ENCODED_AES_KEY
 
 ---
 
-### 6. AES Encryption
+### 5. AES Encryption
 
 Encrypt a message using the session AES key:
 
 ```http
-POST /aesEncryption
+POST /security/aesEncryption
 Content-Type: application/json
 
 {
@@ -201,12 +187,12 @@ Content-Type: application/json
 
 ---
 
-### 7. AES Decryption
+### 6. AES Decryption
 
 Decrypt a message using the session AES key:
 
 ```http
-POST /aesDecryption
+POST /security/aesDecryption
 Content-Type: application/json
 
 {
@@ -233,6 +219,29 @@ Content-Type: application/json
 4. Server fetches the key from Redis and encrypts the message.
 5. For decryption, client sends `sessionId` and ciphertext to `/aesDecryption`.
 6. Server retrieves the AES key and decrypts the message.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Redis
+
+    Client->>Server: GET /session/secret-key?sessionId=<id>
+    Server->>Redis: Generate & store AES key with sessionId
+    Redis-->>Server: Confirm key stored
+    Server-->>Client: "Secret key has been generated"
+
+    Client->>Server: POST /aesEncryption {sessionId, message}
+    Server->>Redis: Retrieve AES key using sessionId
+    Redis-->>Server: Return AES key
+    Server-->>Client: Return encrypted message
+
+    Client->>Server: POST /aesDecryption {sessionId, encryptedMessage}
+    Server->>Redis: Retrieve AES key using sessionId
+    Redis-->>Server: Return AES key
+    Server-->>Client: Return decrypted message
+
+```
 
 > **Security Note:**
 > AES keys are **never sent repeatedly**. HTTPS should always be used for the initial key delivery.

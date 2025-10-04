@@ -23,7 +23,7 @@ public class AesSessionRedisServiceImpl implements AesSessionRedisService {
         String base64Key = Base64.getEncoder().encodeToString(secretKey.getEncoded());
         return redisTemplate.opsForValue()
                 .set("session:"+sessionId, base64Key, Duration.ofSeconds(TTL_SECONDS))
-                .thenReturn(base64Key);
+                .thenReturn("Secret key has been generated");
     }
 
     @Override
