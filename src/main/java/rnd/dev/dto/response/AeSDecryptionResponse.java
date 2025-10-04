@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AESDecryptionResponse {
+public class AeSDecryptionResponse {
     private String originalMessage;
 }

@@ -1,14 +1,14 @@
 package rnd.dev.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-@SuperBuilder
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptionDecryptionRequest {
-    private String sessionId;
+public class RsaDecryptionRequest {
+    private String encryptedMessage;
 }

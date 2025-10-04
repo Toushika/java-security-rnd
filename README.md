@@ -245,5 +245,5 @@ sequenceDiagram
 
 > **Security Note:**
 > AES keys are **never sent repeatedly**. HTTPS should always be used for the initial key delivery.
-
 ---
+

@@ -1,6 +1,5 @@
 package rnd.dev.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +17,17 @@ public class OperationController extends AbstractController {
     private final DecodingService decodingService;
     private final AesEncryptionService aesEncryptionService;
     private final AesDecryptionService aesDecryptionService;
+    private final RsaEncryptionService rsaEncryptionService;
+    private final RsaDecryptionService rsaDecryptionService;
 
-    public OperationController(EncodingService encodingService, HashingService hashingService, DecodingService decodingService, AesEncryptionService aesEncryptionService, AesDecryptionService aesDecryptionService) {
+    public OperationController(EncodingService encodingService, HashingService hashingService, DecodingService decodingService, AesEncryptionService aesEncryptionService, AesDecryptionService aesDecryptionService, RsaEncryptionService rsaEncryptionService, RsaDecryptionService rsaDecryptionService) {
         this.encodingService = encodingService;
         this.hashingService = hashingService;
         this.decodingService = decodingService;
         this.aesEncryptionService = aesEncryptionService;
         this.aesDecryptionService = aesDecryptionService;
+        this.rsaEncryptionService = rsaEncryptionService;
+        this.rsaDecryptionService = rsaDecryptionService;
     }
 
     @PostMapping(ENCODE_PATH)
@@ -44,13 +47,23 @@ public class OperationController extends AbstractController {
     }
 
     @PostMapping(AES_ENCRYPTION_PATH)
-    public Mono<AESEncryptionResponse> encryptMessageByAes(@RequestBody AESEncryptionRequest aesEncryptionRequest) {
+    public Mono<AesEncryptionResponse> encryptMessageByAes(@RequestBody AesEncryptionRequest aesEncryptionRequest) {
         return aesEncryptionService.encryptMessage(aesEncryptionRequest);
     }
 
     @PostMapping(AES_DECRYPTION_PATH)
-    public Mono<AESDecryptionResponse> decryptMessageByAes(@RequestBody AESDecryptionRequest aesDecryptionRequest) {
+    public Mono<AeSDecryptionResponse> decryptMessageByAes(@RequestBody AesDecryptionRequest aesDecryptionRequest) {
         return aesDecryptionService.decryptMessage(aesDecryptionRequest);
+    }
+
+    @PostMapping(RSA_ENCRYPTION_PATH)
+    public Mono<RsaEncryptionResponse> encryptMessageByRsa(@RequestBody RsaEncryptionRequest rsaEncryptionRequest) {
+        return rsaEncryptionService.encryptMessage(rsaEncryptionRequest);
+    }
+
+    @PostMapping(RSA_DECRYPTION_PATH)
+    public Mono<RsaDecryptionResponse> decryptMessageByRsa(@RequestBody RsaDecryptionRequest rsaDecryptionRequest) {
+        return rsaDecryptionService.decryptMessage(rsaDecryptionRequest);
     }
 }
 

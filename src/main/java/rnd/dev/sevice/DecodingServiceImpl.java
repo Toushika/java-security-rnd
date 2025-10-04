@@ -15,15 +15,15 @@ public class DecodingServiceImpl implements DecodingService {
         return Mono.just(builtDecodeResponse(decodingRequest.getEncodedMessage()));
     }
 
-    private DecodingResponse builtDecodeResponse(String encodedMessage){
+    private DecodingResponse builtDecodeResponse(String encodedMessage) {
         return DecodingResponse.builder()
-                .originalMessage( decodeToBase64(encodedMessage))
+                .originalMessage(decodeToBase64(encodedMessage))
                 .build();
 
     }
 
     private String decodeToBase64(String encodedMessage) {
         byte[] decodeBytes = Base64.getDecoder().decode(encodedMessage);
-       return new String(decodeBytes, StandardCharsets.UTF_8);
+        return new String(decodeBytes, StandardCharsets.UTF_8);
     }
 }

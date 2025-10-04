@@ -22,22 +22,22 @@ public class AesSessionRedisServiceImpl implements AesSessionRedisService {
     public Mono<String> storeSecretKey(String sessionId, SecretKey secretKey) {
         String base64Key = Base64.getEncoder().encodeToString(secretKey.getEncoded());
         return redisTemplate.opsForValue()
-                .set("session:"+sessionId, base64Key, Duration.ofSeconds(TTL_SECONDS))
+                .set("session:" + sessionId, base64Key, Duration.ofSeconds(TTL_SECONDS))
                 .thenReturn("Secret key has been generated");
     }
 
     @Override
     public Mono<SecretKey> getSecretKey(String sessionId) {
         return redisTemplate.opsForValue()
-                .get("session:"+sessionId)
+                .get("session:" + sessionId)
                 .map(base64Key -> {
-                    byte[] aesSecretKey=  Base64.getDecoder().decode(base64Key);
+                    byte[] aesSecretKey = Base64.getDecoder().decode(base64Key);
                     return new SecretKeySpec(aesSecretKey, 0, aesSecretKey.length, "AES");
                 });
     }
 
     @Override
     public Mono<Void> deleteSecretKey(String sessionId) {
-        return redisTemplate.delete("session:"+ sessionId).then();
+        return redisTemplate.delete("session:" + sessionId).then();
     }
 }

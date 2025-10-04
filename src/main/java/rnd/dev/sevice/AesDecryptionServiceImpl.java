@@ -2,10 +2,13 @@ package rnd.dev.sevice;
 
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import rnd.dev.dto.request.AESDecryptionRequest;
-import rnd.dev.dto.response.AESDecryptionResponse;
+import rnd.dev.dto.request.AesDecryptionRequest;
+import rnd.dev.dto.response.AeSDecryptionResponse;
 
-import javax.crypto.*;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -19,11 +22,11 @@ public class AesDecryptionServiceImpl implements AesDecryptionService {
     }
 
     @Override
-    public Mono<AESDecryptionResponse> decryptMessage(AESDecryptionRequest aesDecryptionRequest) {
+    public Mono<AeSDecryptionResponse> decryptMessage(AesDecryptionRequest aesDecryptionRequest) {
         return builtDecryptedMessage(aesDecryptionRequest);
     }
 
-    private Mono<AESDecryptionResponse> builtDecryptedMessage(AESDecryptionRequest aesDecryptionRequest ){
+    private Mono<AeSDecryptionResponse> builtDecryptedMessage(AesDecryptionRequest aesDecryptionRequest) {
         return aesSessionRedisService.getSecretKey(aesDecryptionRequest.getSessionId())
                 .switchIfEmpty(Mono.error(new RuntimeException("SessionKey not found")))
                 .map(secretKey -> {
@@ -43,8 +46,8 @@ public class AesDecryptionServiceImpl implements AesDecryptionService {
     }
 
 
-    private AESDecryptionResponse builtAesDecryptionResponse(String originalMessage) {
-        return AESDecryptionResponse.builder()
+    private AeSDecryptionResponse builtAesDecryptionResponse(String originalMessage) {
+        return AeSDecryptionResponse.builder()
                 .originalMessage(originalMessage)
                 .build();
     }
