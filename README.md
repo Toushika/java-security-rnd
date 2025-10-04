@@ -1,7 +1,3 @@
-Perfect! I can draft a **comprehensive README** for your project, covering **encoding, decoding, hashing, AES encryption, and decryption**, with brief descriptions for each feature and example endpoints. Here’s a polished version:
-
----
-
 # Java Security RND
 
 A **Spring Boot WebFlux application** demonstrating basic **security operations**:
@@ -31,7 +27,6 @@ The project is **reactive**, using **Project Reactor** and **Redis** for managin
 3. [Running the Application](#running-the-application)
 4. [API Endpoints](#api-endpoints)
 5. [AES Session Key Flow](#aes-session-key-flow)
-6. [Project Structure](#project-structure)
 
 ---
 
@@ -243,34 +238,3 @@ Content-Type: application/json
 > AES keys are **never sent repeatedly**. HTTPS should always be used for the initial key delivery.
 
 ---
-
-## Project Structure
-
-```
-src/main/java/rnd/dev/
-├─ config/
-│   └─ RedisConfig.java
-├─ controller/
-│   ├─ OperationController.java
-│   └─ AesSessionController.java
-├─ dto/
-│   ├─ request/
-│   └─ response/
-├─ service/
-│   ├─ EncodingServiceImpl.java
-│   ├─ DecodingServiceImpl.java
-│   ├─ HashingServiceImpl.java
-│   ├─ AesEncryptionServiceImpl.java
-│   ├─ AesDecryptionServiceImpl.java
-│   └─ AesSessionRedisServiceImpl.java
-└─ utiliy/
-    └─ AesUtility.java
-```
-
----
-
-This README now documents **all your security operations** and provides clear usage examples for someone testing your API.
-
-If you want, I can also **add a “Quick Test Section with curl/Postman examples”** for encoding, decoding, hashing, and AES encryption/decryption so the README becomes fully ready-to-use.
-
-Do you want me to add that?
