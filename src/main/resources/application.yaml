@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: java-security-rnd
+  data:
+    redis:
+      url: redis://localhost:6379
+
+server:
+  port: 7001
