@@ -231,12 +231,12 @@ sequenceDiagram
     Redis-->>Server: Confirm key stored
     Server-->>Client: "Secret key has been generated"
 
-    Client->>Server: POST /aesEncryption {sessionId, message}
+    Client->>Server: POST  /security/aesEncryption {sessionId, message}
     Server->>Redis: Retrieve AES key using sessionId
     Redis-->>Server: Return AES key
     Server-->>Client: Return encrypted message
 
-    Client->>Server: POST /aesDecryption {sessionId, encryptedMessage}
+    Client->>Server: POST  /security/aesDecryption {sessionId, encryptedMessage}
     Server->>Redis: Retrieve AES key using sessionId
     Redis-->>Server: Return AES key
     Server-->>Client: Return decrypted message
