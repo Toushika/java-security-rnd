@@ -1,14 +1,12 @@
-package rnd.dev.dto.request;
+package rnd.dev.dto.response;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
 
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class AESDecryptionRequest extends EncryptionDecryptionRequest {
-    private String encryptedMessage;
+public class AesEncryptionResponse extends EncryptionResponse {
 }

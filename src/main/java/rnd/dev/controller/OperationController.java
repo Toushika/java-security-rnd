@@ -1,6 +1,5 @@
 package rnd.dev.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,12 +43,12 @@ public class OperationController extends AbstractController {
     }
 
     @PostMapping(AES_ENCRYPTION_PATH)
-    public Mono<AESEncryptionResponse> encryptMessageByAes(@RequestBody AESEncryptionRequest aesEncryptionRequest) {
+    public Mono<AesEncryptionResponse> encryptMessageByAes(@RequestBody AesEncryptionRequest aesEncryptionRequest) {
         return aesEncryptionService.encryptMessage(aesEncryptionRequest);
     }
 
     @PostMapping(AES_DECRYPTION_PATH)
-    public Mono<AESDecryptionResponse> decryptMessageByAes(@RequestBody AESDecryptionRequest aesDecryptionRequest) {
+    public Mono<AesDecryptionResponse> decryptMessageByAes(@RequestBody AesDecryptionRequest aesDecryptionRequest) {
         return aesDecryptionService.decryptMessage(aesDecryptionRequest);
     }
 }

@@ -1,9 +1,9 @@
 package rnd.dev.sevice;
 
 import reactor.core.publisher.Mono;
-import rnd.dev.dto.request.AESEncryptionRequest;
-import rnd.dev.dto.response.AESEncryptionResponse;
+import rnd.dev.dto.request.AesEncryptionRequest;
+import rnd.dev.dto.response.AesEncryptionResponse;
 
 public interface AesEncryptionService {
-    Mono<AESEncryptionResponse> encryptMessage(AESEncryptionRequest aesEncryptionRequest);
+    Mono<AesEncryptionResponse> encryptMessage(AesEncryptionRequest aesEncryptionRequest);
 }
