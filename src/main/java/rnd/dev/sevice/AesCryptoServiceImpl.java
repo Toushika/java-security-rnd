@@ -1,6 +1,7 @@
 package rnd.dev.sevice;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import rnd.dev.dto.request.DecryptionRequest;
@@ -11,6 +12,7 @@ import rnd.dev.dto.response.DecryptionResponse;
 import rnd.dev.dto.response.EncryptionResponse;
 import rnd.dev.utiliy.AesUtility;
 
+@Slf4j
 @Service
 public class AesCryptoServiceImpl implements CryptoService {
 
@@ -30,9 +32,12 @@ public class AesCryptoServiceImpl implements CryptoService {
 
     @Override
     public <T extends DecryptionResponse> Mono<T> decrypt(DecryptionRequest decryptionRequest) {
-        return secretKeyRedisService.getSecretKey(decryptionRequest.getEncryptedMessage())
+        log.info("AesCryptoServiceImpl :: decrypt :: request : {}", decryptionRequest);
+        return secretKeyRedisService.getSecretKey(decryptionRequest.getClientId())
+                .doOnNext(aesKeyString -> log.info("AesCryptoServiceImpl :: decrypt :: aesKeyString : {}", aesKeyString))
                 .map(aesKeyString -> AesUtility.decrypt(decryptionRequest.getEncryptedMessage(), aesKeyString))
                 .map(this::builtDecryptionResponse)
+                .doOnNext(decryptedMessage ->  log.info("AesCryptoServiceImpl :: decrypt :: decryptedMessage : {}", decryptedMessage))
                 .cast((Class<T>) AesDecryptionResponse.class);
     }
 
@@ -49,7 +54,7 @@ public class AesCryptoServiceImpl implements CryptoService {
     }
 
     private DecryptionResponse builtDecryptionResponse(String decryptedMessage) {
-        return DecryptionResponse.builder()
+        return AesDecryptionResponse.builder()
                 .plainText(decryptedMessage)
                 .build();
     }
