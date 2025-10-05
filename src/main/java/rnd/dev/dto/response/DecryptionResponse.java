@@ -1,4 +1,4 @@
-package rnd.dev.dto.request;
+package rnd.dev.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EncryptionDecryptionRequest {
-    private String sessionId;
+public class DecryptionResponse {
+    private String plainText;
 }

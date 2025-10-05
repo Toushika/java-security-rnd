@@ -7,6 +7,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class AesEncryptionRequest extends EncryptionDecryptionRequest{
-    private String message;
+@ToString(callSuper = true)
+public class AesEncryptionRequest extends EncryptionRequest {
 }

@@ -4,26 +4,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
-import rnd.dev.dto.request.*;
-import rnd.dev.dto.response.*;
-import rnd.dev.sevice.*;
+import rnd.dev.dto.request.DecodingRequest;
+import rnd.dev.dto.request.EncodingRequest;
+import rnd.dev.dto.request.HashingRequest;
+import rnd.dev.dto.response.DecodingResponse;
+import rnd.dev.dto.response.EncodingResponse;
+import rnd.dev.dto.response.HashingResponse;
+import rnd.dev.sevice.DecodingService;
+import rnd.dev.sevice.EncodingService;
+import rnd.dev.sevice.HashingService;
 
 import static rnd.dev.constant.UrlConstants.*;
 
 @RestController
 public class OperationController extends AbstractController {
+
     private final EncodingService encodingService;
     private final HashingService hashingService;
     private final DecodingService decodingService;
-    private final AesEncryptionService aesEncryptionService;
-    private final AesDecryptionService aesDecryptionService;
 
-    public OperationController(EncodingService encodingService, HashingService hashingService, DecodingService decodingService, AesEncryptionService aesEncryptionService, AesDecryptionService aesDecryptionService) {
+    public OperationController(EncodingService encodingService, HashingService hashingService, DecodingService decodingService) {
         this.encodingService = encodingService;
         this.hashingService = hashingService;
         this.decodingService = decodingService;
-        this.aesEncryptionService = aesEncryptionService;
-        this.aesDecryptionService = aesDecryptionService;
     }
 
     @PostMapping(ENCODE_PATH)
@@ -42,14 +45,5 @@ public class OperationController extends AbstractController {
 
     }
 
-    @PostMapping(AES_ENCRYPTION_PATH)
-    public Mono<AesEncryptionResponse> encryptMessageByAes(@RequestBody AesEncryptionRequest aesEncryptionRequest) {
-        return aesEncryptionService.encryptMessage(aesEncryptionRequest);
-    }
-
-    @PostMapping(AES_DECRYPTION_PATH)
-    public Mono<AesDecryptionResponse> decryptMessageByAes(@RequestBody AesDecryptionRequest aesDecryptionRequest) {
-        return aesDecryptionService.decryptMessage(aesDecryptionRequest);
-    }
 }
 

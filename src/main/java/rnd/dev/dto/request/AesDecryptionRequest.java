@@ -9,6 +9,5 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class AesDecryptionRequest extends EncryptionDecryptionRequest {
-    private String encryptedMessage;
+public class AesDecryptionRequest extends DecryptionRequest {
 }
