@@ -1,14 +1,14 @@
 package rnd.dev.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DecodingResponse {
-    private String originalMessage;
+    private String plainText;
 }

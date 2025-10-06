@@ -1,14 +1,12 @@
 package rnd.dev.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class EncodingRequest {
-    private String message;
+@ToString(callSuper = true)
+public class EncodingRequest extends CodecRequest {
 }

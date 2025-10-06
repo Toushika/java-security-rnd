@@ -1,4 +1,4 @@
-package rnd.dev.dto.request;
+package rnd.dev.dto.response;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -8,6 +8,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class DecodingRequest extends CodecRequest {
+public class Sha256Response extends HashingResponse {
 
 }

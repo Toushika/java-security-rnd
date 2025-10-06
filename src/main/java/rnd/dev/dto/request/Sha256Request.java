@@ -1,14 +1,14 @@
 package rnd.dev.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-@Data
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class HashingRequest {
-    private String message;
+@ToString(callSuper = true)
+public class Sha256Request extends HashingRequest {
 }
